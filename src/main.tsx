@@ -4,11 +4,15 @@ import "./index.css";
 import { RouterProvider } from "react-router/dom";
 import router from "./router";
 import { AnchoredToastProvider, ToastProvider } from "@/components/ui/toast";
+import { ThemeProvider } from "@/components/theme-provider";
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ToastProvider>
       <AnchoredToastProvider>
-        <RouterProvider router={router} />
+        <ThemeProvider>
+          <RouterProvider router={router} />
+        </ThemeProvider>
       </AnchoredToastProvider>
     </ToastProvider>
   </StrictMode>
