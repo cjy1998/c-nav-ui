@@ -8,12 +8,12 @@ const Home = lazy(() => import("@/views/Home"));
 const router = createBrowserRouter([
   {
     path: "/",
+    Component: Home,
+  },
+  {
+    path: "/",
     Component: Layout,
     children: [
-      {
-        path: "/",
-        Component: Home,
-      },
       {
         path: "/login",
         Component: Login,
