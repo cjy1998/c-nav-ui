@@ -48,3 +48,14 @@ export interface Settings {
   updatedAt: string;
   deletedAt: string | null;
 }
+
+export interface Categorys {
+  id: number;
+  name: string;
+  depth?: string;
+  index: string;
+  isPrivate: string;
+  parentId: number;
+  createdAt: string;
+  updatedAt: string;
+}
