@@ -9,14 +9,17 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTab } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-import { searchEngines } from "@/utils/const";
+import { searchEngines, weeks } from "@/utils/const";
 
-import LinkCard from "@/components/linkCard";
+import LinkCard from "@/components/LinkCard";
 
 import { CategorysService } from "@/api/categorys";
 import type { Categorys } from "@/types/api.types";
 
+import { UseTime } from "@/hooks/useTime";
+
 const Home = () => {
+  const { time, date, week, lunar } = UseTime();
   const [bgImg] = useState(
     "https://p5.qhimg.com/bdr/__85/t017f77a34519fd2802.jpg"
   );
@@ -51,11 +54,11 @@ const Home = () => {
       <div className="relative z-10 h-full flex flex-col items-center py-10">
         {/* 时间 */}
         <div className="flex flex-col items-center gap-1 mb-10">
-          <span className="text-white text-6xl font-bold ">14:00</span>
+          <span className="text-white text-6xl font-bold ">{time}</span>
           <div className="flex items-center gap-2">
-            <span className="text-[#e5e5e5] text-lg ">08-25</span>
-            <span className="text-[#e5e5e5] text-lg ">星期天</span>
-            <span className="text-[#e5e5e5] text-lg ">冬月二十</span>
+            <span className="text-[#e5e5e5] text-lg ">{date}</span>
+            <span className="text-[#e5e5e5] text-lg ">{weeks[week]}</span>
+            <span className="text-[#e5e5e5] text-lg ">{lunar}</span>
           </div>
         </div>
         {/* 搜索 */}
