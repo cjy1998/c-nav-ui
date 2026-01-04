@@ -37,3 +37,13 @@ export const weeks = [
   "星期五",
   "星期六",
 ];
+
+export const LocalStorage = {
+  UserToken: "userToken",
+} as const;
+
+export type LocalStorageEnum = (typeof LocalStorage)[keyof typeof LocalStorage];
+
+export const SessionStorage = {} as const;
+export type SessionStorageEnum =
+  (typeof SessionStorage)[keyof typeof SessionStorage];

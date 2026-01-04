@@ -1,7 +1,8 @@
 import axios, { type AxiosInstance, type AxiosResponse } from "axios";
 import { ResponseCode, type ApiResponse } from "@/types/api.types";
 import { message } from "./toast";
-
+import { removeItem } from "@/utils/storage";
+import { LocalStorage } from "@/utils/const";
 class ApiClient {
   private client: AxiosInstance;
 
@@ -31,7 +32,7 @@ class ApiClient {
     this.client.interceptors.response.use(
       (response: AxiosResponse<ApiResponse>) => {
         if (response.data.code !== ResponseCode.Success) {
-          message.error("提示", response.data.msg);
+          message.error(response.data.message || "请求失败");
           return Promise.reject(response.data);
         }
         return response;
@@ -40,8 +41,9 @@ class ApiClient {
         const status = error.response.status;
         switch (status) {
           case 401:
-            message.error("身份过期，请重新登录");
-            // window.location.href = "/";
+            message.error("身份过期或账号密码错误，请重新登录");
+            removeItem(LocalStorage.UserToken);
+            window.location.href = "/login";
             break;
           case 400:
             message.error("请求参数错误");

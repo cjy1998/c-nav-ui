@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Form } from "@/components/ui/form";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -13,15 +13,32 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+
+import { authService } from "@/api/auth";
+import { setItem } from "@/utils/storage";
+import { LocalStorage } from "@/utils/const";
+import { useNavigate } from "react-router";
+
 const Login = () => {
-  const [loading, setLoading] = React.useState(false);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 800));
-    setLoading(false);
-    alert(`Email: ${formData.get("email") || ""}`);
+    try {
+      const res = await authService.login({
+        username: formData.get("username") as string,
+        password: formData.get("password") as string,
+      });
+      setLoading(false);
+      setItem(LocalStorage.UserToken, res.token);
+      navigate("/admin");
+    } catch (error) {
+      console.log(error);
+
+      setLoading(false);
+    }
   };
   return (
     <div className="w-full h-full flex justify-center items-center">
@@ -32,13 +49,13 @@ const Login = () => {
         </CardHeader>
         <CardPanel>
           <Form onSubmit={onSubmit}>
-            <Field name="email">
+            <Field name="username">
               <FieldLabel>账号</FieldLabel>
               <Input
                 disabled={loading}
                 placeholder="you@example.com"
                 required
-                type="email"
+                type="username"
               />
               <FieldError>请输入账号</FieldError>
             </Field>

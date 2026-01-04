@@ -23,7 +23,7 @@ export const ResponseCode = {
 export type ResponseCode = (typeof ResponseCode)[keyof typeof ResponseCode];
 
 export interface ApiResponse<T = unknown> {
-  msg: string;
+  message: string;
   code: ResponseCode;
   data?: T;
   success: boolean;
