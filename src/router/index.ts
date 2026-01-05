@@ -5,7 +5,7 @@ const Login = lazy(() => import("@/views/Login"));
 const Admin = lazy(() => import("@/views/Admin"));
 const Home = lazy(() => import("@/views/Home"));
 const Data = lazy(() => import("@/views/Data"));
-const Bookmarks = lazy(() => import("@/views/Bookmarks"));
+const Bookmarks = lazy(() => import("@/views/bookmarks/Bookmarks.tsx"));
 const Categorys = lazy(() => import("@/views/Categorys"));
 const Setting = lazy(() => import("@/views/Setting"));
 

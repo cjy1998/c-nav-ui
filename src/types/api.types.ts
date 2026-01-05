@@ -59,3 +59,18 @@ export interface Categorys {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface Bookmarks {
+  id: number;
+  categoryId?: number;
+  desc?: string;
+  icon?: string;
+  index?: number;
+  isPrivate?: number;
+  name: string;
+  note?: string;
+  tags?: string;
+  url: string;
+  createdAt: string;
+  updatedAt: string;
+}
