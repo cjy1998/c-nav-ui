@@ -1,9 +1,9 @@
-import React from "react";
+import { Outlet } from "react-router";
 
 const Admin = () => {
   return (
-    <div className="text-3xl font-bold">
-      <span>管理员页面</span>
+    <div className="w-full h-full">
+      <Outlet />
     </div>
   );
 };

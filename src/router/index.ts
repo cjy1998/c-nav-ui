@@ -4,6 +4,10 @@ import Layout from "@/layout/Index";
 const Login = lazy(() => import("@/views/Login"));
 const Admin = lazy(() => import("@/views/Admin"));
 const Home = lazy(() => import("@/views/Home"));
+const Data = lazy(() => import("@/views/Data"));
+const Bookmarks = lazy(() => import("@/views/Bookmarks"));
+const Categorys = lazy(() => import("@/views/Categorys"));
+const Setting = lazy(() => import("@/views/Setting"));
 
 const router = createBrowserRouter([
   {
@@ -21,6 +25,24 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         Component: Admin,
+        children: [
+          {
+            path: "/admin/data",
+            Component: Data,
+          },
+          {
+            path: "/admin/bookmarks",
+            Component: Bookmarks,
+          },
+          {
+            path: "/admin/categorys",
+            Component: Categorys,
+          },
+          {
+            path: "/admin/setting",
+            Component: Setting,
+          },
+        ],
       },
     ],
   },
