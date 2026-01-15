@@ -14,7 +14,7 @@ import {
 
 import { BookmarksService } from "@/api/bookmarks";
 
-import type { Bookmarks } from "@/types/api.types";
+import type { Bookmarks, BookmarksFrom } from "@/types/api.types";
 import { AddForm } from "./actionForm";
 
 const Bookmarks = () => {
@@ -25,7 +25,7 @@ const Bookmarks = () => {
     });
   }, []);
   //   添加
-  const handleAdd = (val: any) => {
+  const handleAdd = (val: BookmarksFrom) => {
     console.log(val);
   };
   return (

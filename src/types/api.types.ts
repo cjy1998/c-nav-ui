@@ -39,7 +39,7 @@ export interface PageResult<T = unknown> {
   totalPage: number;
   rows: T[];
 }
-export interface Settings {
+export type Settings = {
   id: number;
   key: string;
   value: string;
@@ -47,20 +47,22 @@ export interface Settings {
   createdAt: string;
   updatedAt: string;
   deletedAt: string | null;
-}
+};
 
-export interface Categorys {
+export type Categorys = {
   id: number;
   name: string;
-  depth?: string;
-  index: string;
-  isPrivate: string;
+  depth?: number;
+  index: number;
+  isPrivate: number;
   parentId: number;
   createdAt: string;
   updatedAt: string;
-}
+};
 
-export interface Bookmarks {
+export type CategorysFrom = Omit<Categorys, "id" | "createdAt" | "updatedAt">;
+
+export type Bookmarks = {
   id: number;
   categoryId?: number;
   desc?: string;
@@ -73,4 +75,6 @@ export interface Bookmarks {
   url: string;
   createdAt: string;
   updatedAt: string;
-}
+};
+
+export type BookmarksFrom = Omit<Bookmarks, "id" | "createdAt" | "updatedAt">;

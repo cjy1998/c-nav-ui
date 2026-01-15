@@ -6,7 +6,7 @@ const Admin = lazy(() => import("@/views/Admin"));
 const Home = lazy(() => import("@/views/Home"));
 const Data = lazy(() => import("@/views/Data"));
 const Bookmarks = lazy(() => import("@/views/bookmarks/Bookmarks.tsx"));
-const Categorys = lazy(() => import("@/views/Categorys"));
+const Categorys = lazy(() => import("@/views/categorys/Categorys.tsx"));
 const Setting = lazy(() => import("@/views/Setting"));
 
 const router = createBrowserRouter([

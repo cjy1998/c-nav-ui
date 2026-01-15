@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import type { BookmarksFrom } from "@/types/api.types";
 
 const items = [
   { label: "Select framework", value: null },
@@ -36,16 +37,23 @@ export const AddForm = ({
   onSubmit,
 }: {
   children: React.ReactNode;
-  onSubmit: (data: any) => void;
+  onSubmit: (data: BookmarksFrom) => void;
 }) => {
   const [open, setOpen] = useState(false);
+  const [formData, setFormData] = useState<BookmarksFrom>({
+    name: "chatgpt",
+    url: "https://chat.openai.com/",
+    icon: "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80",
+    categoryId: undefined,
+    tags: "对话",
+    desc: "chatgpt对话",
+    index: 1,
+    isPrivate: 1,
+  });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData);
-    data.isPrivate = data.isPrivate ? 0 : 1;
-    onSubmit(data);
+    onSubmit(formData);
     setOpen(false);
   };
 
@@ -59,17 +67,27 @@ export const AddForm = ({
             <SheetDescription>请输入书签信息</SheetDescription>
           </SheetHeader>
           <SheetPanel className="grid gap-4">
-            {/* 必须添加 name 属性，FormData 才能获取到值 */}
             <Field name="name">
               <FieldLabel>名称</FieldLabel>
-              <Input name="name" defaultValue="chatgpt" type="text" required />
+              <Input
+                name="name"
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+                type="text"
+                required
+              />
               <FieldError>请输入书签名称</FieldError>
             </Field>
             <Field name="url">
               <FieldLabel>url</FieldLabel>
               <Input
                 name="url"
-                defaultValue="https://chat.openai.com/"
+                value={formData.url}
+                onChange={(e) =>
+                  setFormData({ ...formData, url: e.target.value })
+                }
                 type="text"
                 required
               />
@@ -79,24 +97,28 @@ export const AddForm = ({
               <FieldLabel>图标</FieldLabel>
               <div className="flex items-center gap-4">
                 <Avatar className="rounded-xl">
-                  <AvatarImage
-                    alt="User"
-                    src="https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80"
-                  />
+                  <AvatarImage alt="User" src={formData.icon} />
                   <AvatarFallback>icon</AvatarFallback>
                 </Avatar>
-                {/* 使用 hidden input 提交图标 URL */}
                 <Input
                   name="icon"
                   type="hidden"
-                  defaultValue="https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80"
+                  value={formData.icon}
+                  onChange={(e) =>
+                    setFormData({ ...formData, icon: e.target.value })
+                  }
                 />
               </div>
             </Field>
             <Field name="categoryId">
               <FieldLabel>分类</FieldLabel>
-              {/* Select 需要 name 属性 */}
-              <Select name="categoryId" defaultValue="next">
+              <Select
+                name="categoryId"
+                value={formData.categoryId?.toString()}
+                onValueChange={(value) =>
+                  setFormData({ ...formData, categoryId: Number(value) })
+                }
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -111,19 +133,45 @@ export const AddForm = ({
             </Field>
             <Field name="tags">
               <FieldLabel>标签</FieldLabel>
-              <Input name="tags" defaultValue="对话" type="text" />
+              <Input
+                name="tags"
+                value={formData.tags}
+                onChange={(e) =>
+                  setFormData({ ...formData, tags: e.target.value })
+                }
+                type="text"
+              />
             </Field>
             <Field name="desc">
               <FieldLabel>描述</FieldLabel>
-              <Input name="desc" defaultValue="chatgpt对话" />
+              <Input
+                name="desc"
+                value={formData.desc}
+                onChange={(e) =>
+                  setFormData({ ...formData, desc: e.target.value })
+                }
+              />
             </Field>
             <Field name="index">
               <FieldLabel>排序</FieldLabel>
-              <Input name="index" defaultValue="1" type="number" />
+              <Input
+                name="index"
+                value={formData.index}
+                onChange={(e) =>
+                  setFormData({ ...formData, index: Number(e.target.value) })
+                }
+                type="number"
+              />
             </Field>
             <Field name="isPrivate">
               <FieldLabel>是否私有</FieldLabel>
-              <Switch name="isPrivate" />
+              <Switch
+                name="isPrivate"
+                checked={formData.isPrivate === 0}
+                onCheckedChange={(checked) =>
+                  setFormData({ ...formData, isPrivate: checked ? 0 : 1 })
+                }
+              />
             </Field>
           </SheetPanel>
           <SheetFooter>
